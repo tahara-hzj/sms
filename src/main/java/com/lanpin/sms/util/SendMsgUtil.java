@@ -1,9 +1,12 @@
 package com.lanpin.sms.util;
 
+import com.lanpin.sms.common.Config;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author  Jello
@@ -13,29 +16,16 @@ import java.util.Date;
 public class SendMsgUtil {
 
     /**
-     * 用户ID
+     * 生成随机数
+     * @return
      */
-    public static final String ACCOUNT_SID = "276c3c2429e341e9ac1ce459784e5423";//这里填写你在平台里的ACOUNT_SID
-
-    /**
-     * 密钥
-     */
-    public static final String AUTH_TOKEN = "0df6df38046d46208e14980bae79b8ff";
-
-    /**
-     * 请求地址前半部分
-     */
-    public static final String BASE_URL = "https://api.miaodiyun.com/20150822/industrySMS/sendSMS";//请求地址是固定的不用改
-
-    /**
-     * 验证码
-     */
-    public static final String randNum = RandUtil.getRandNum();
-
-    /**
-     * 短信内容
-     */
-    public static String smsContent = "【倾城出行】您的验证码为"+ randNum +"，请于"+2+"分钟内正确输入，如非本人操作，请忽略此短信。";
+    public static String getRandNum(){
+        String randNum = new Random().nextInt(1000000) + "";
+        if(6 != randNum.length()){//如果生成的不是6位数随机数则返回该方法继续生成
+            return getRandNum();
+        }
+        return randNum;
+    }
 
     /**
      * 获取时间戳
@@ -88,11 +78,12 @@ public class SendMsgUtil {
      * @param to
      * @return
      */
-    public static String sendMsgData(String ACCOUNT_SID,String AUTH_TOKEN, String smsContent,String to){
+    public static String createCommonParam(String ACCOUNT_SID,String AUTH_TOKEN, String smsContent,String to){
         String timestamp = getTimestamp(); //时间戳
         String sig =  MD5(ACCOUNT_SID,AUTH_TOKEN,timestamp);//签名认证
-        String str = "accountSid="+ACCOUNT_SID+"&smsContent="+
-                smsContent+"&to="+to+"&timestamp="+timestamp+"&sig="+sig+"&respDataType=JSON";
+        String str = "accountSid=" + ACCOUNT_SID + "&smsContent=" +
+                smsContent + "&to=" + to + "&timestamp=" + timestamp + "&sig=" + sig +
+                "&respDataType=" + Config.RESP_DATA_TYPE;
         return str;
     }
 
