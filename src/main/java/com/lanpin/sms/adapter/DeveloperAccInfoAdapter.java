@@ -23,6 +23,8 @@ public class DeveloperAccInfoAdapter {
      * @return
      */
     public String getDeveloperAccInfo(){
+        //TODO
+
         String sendUrl = Config.BASE_URL + "/query/accountInfo";
         logger.info("开始获取开发者账号信息");
         String content = SendMsgUtil.createCommonParam(Config.ACCOUNT_SID, Config.AUTH_TOKEN);
