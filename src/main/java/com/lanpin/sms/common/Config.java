@@ -21,7 +21,7 @@ public class Config {
     /**
      * 请求地址前半部分
      */
-    public static final String BASE_URL = "https://api.miaodiyun.com/20150822/industrySMS/sendSMS";//请求地址是固定的不用改
+    public static final String BASE_URL = "https://api.miaodiyun.com/20150822";//请求地址是固定的不用改
 
     /**
      * 响应数据类型, JSON或XML
@@ -42,6 +42,14 @@ public class Config {
      * 短信内容
      */
     public static String smsContent = "【倾城出行】您的验证码为"+ randNum +"，请于"+ time +"分钟内正确输入，如非本人操作，请忽略此短信。";
+
+    /**
+     * 会员营销短信内容
+     */
+    public static String affMarkName = "优惠券";
+    public static String affMarkUrl = "https://my.csdn.net/";
+    public static String affMarkSMS = "【倾城出行】您的"+ affMarkName +"就快过期啦！不想白白浪费，就快来使用吧！戳："+ affMarkUrl +"使用！回TD退订。";
+
 }
 
 

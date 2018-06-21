@@ -87,7 +87,33 @@ public class SendMsgUtil {
         return str;
     }
 
+    /**
+     * 获取开发者账号信息请求数据
+     * @param ACCOUNT_SID
+     * @param AUTH_TOKEN
+     * @return
+     */
+    public static String createCommonParam(String ACCOUNT_SID,String AUTH_TOKEN){
+        String timestamp = getTimestamp(); //时间戳
+        String sig =  MD5(ACCOUNT_SID,AUTH_TOKEN,timestamp);//签名认证
+        String str = "accountSid=" + ACCOUNT_SID + "&timestamp=" + timestamp + "&sig=" + sig +
+                "&respDataType=" + Config.RESP_DATA_TYPE;
+        return str;
+    }
+
+    /**
+     * 获取语音验证码请求数据
+     * @param ACCOUNT_SID
+     * @param AUTH_TOKEN
+     * @return
+     */
+    public static String createVoiceParam(String ACCOUNT_SID, String called, String AUTH_TOKEN, String playTimes){
+        String timestamp = getTimestamp(); //时间戳
+        String sig =  MD5(ACCOUNT_SID,AUTH_TOKEN,timestamp);//签名认证
+        String str = "accountSid=" + ACCOUNT_SID + "&verifyCode=" + getRandNum() + "&called=" + called +
+                "&playTimes=" + playTimes + "&timestamp=" + timestamp + "&sig=" + sig +
+                "&respDataType=" + Config.RESP_DATA_TYPE;
+        return str;
+    }
 }
-
-
 
